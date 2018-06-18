@@ -1,0 +1,41 @@
+{
+    "name": "codemods",
+    "version": "1.0.0",
+    "description": "misc codemods",
+    "main": "  ",
+    "scripts": {
+        "precommit": "pretty-quick --staged",
+        "test": "jest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ajhorst/codemods.git"
+    },
+    "keywords": [
+        "jscodeshift",
+        "codemods"
+    ],
+    "author": "AJ Horst",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/ajhorst/codemods/issues"
+    },
+    "homepage": "https://github.com/ajhorst/codemods#readme",
+    "dependencies": {
+        "jscodeshift": "^0.3.30"
+    },
+    "devDependencies": {
+        "husky": "^0.14.3",
+        "prettier": "1.13.5",
+        "pretty-quick": "^1.6.0",
+        "jest": "^21.2.1"
+    },
+    "jest": {
+        "globals": {
+            "baseDir": "../../../"
+        },
+        "roots": [
+            "src/transforms/__tests__"
+        ]
+    }
+}
