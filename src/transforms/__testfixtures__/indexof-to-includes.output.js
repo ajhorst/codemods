@@ -16,3 +16,12 @@ arr.indexOf('foo') == 2;
 if (arr.includes('foo')) {
     foo();
 }
+
+arr.includes('foo');
+!arr.includes('foo');
+
+!arr.includes('foo');
+!arr.includes('foo');
+arr.includes('foo');
+arr.includes('foo');
+arr.includes('foo');

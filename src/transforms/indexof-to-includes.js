@@ -47,6 +47,24 @@ module.exports = (file, api, options) => {
         return node;
     }
 
+    function flipRightSideIndexOf(node) {
+        const newOperator = (operator => {
+            switch (operator) {
+                case '>':
+                    return '<';
+                case '>=':
+                    return '<=';
+                case '<':
+                    return '>';
+                case '<=':
+                    return '>=';
+                default:
+                    return operator;
+            }
+        })(node.operator);
+        return j.binaryExpression(newOperator, node.right, node.left);
+    }
+
     const indexOfCallExpression = {
         type: 'CallExpression',
         callee: {
@@ -61,6 +79,13 @@ module.exports = (file, api, options) => {
     root.find(j.BinaryExpression, {
         left: indexOfCallExpression
     }).replaceWith(path => simplifyLeftSideIndexOf(path.node));
+
+    root.find(j.BinaryExpression, {
+        right: indexOfCallExpression
+    }).replaceWith(path => {
+        const node = flipRightSideIndexOf(path.node);
+        return simplifyLeftSideIndexOf(node);
+    });
 
     return root.toSource(printOptions);
 };
