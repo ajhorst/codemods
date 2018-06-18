@@ -25,10 +25,10 @@
         "jscodeshift": "^0.3.30"
     },
     "devDependencies": {
-        "husky": "^0.14.3",
+        "husky": "^1.0.0-rc.9",
+        "jest": "^21.2.1",
         "prettier": "1.13.5",
-        "pretty-quick": "^1.6.0",
-        "jest": "^21.2.1"
+        "pretty-quick": "^1.6.0"
     },
     "jest": {
         "globals": {
@@ -37,5 +37,10 @@
         "roots": [
             "src/transforms/__tests__"
         ]
+    },
+    "husky": {
+        "hooks": {
+            "pre-push": "npm test"
+        }
     }
 }
