@@ -4,6 +4,8 @@ module.exports = (file, api, options) => {
     const printOptions = options.printOptions || {quote: 'single'};
     const root = j(file.source);
 
+    let modified = false;
+
     function simplifyLeftSideIndexOf(node) {
         const rightHandIsNegativeOne =
             j(node).find(j.UnaryExpression, {
@@ -25,10 +27,12 @@ module.exports = (file, api, options) => {
                 switch (node.operator) {
                     case '==':
                     case '===':
+                        modified = true;
                         return notIncludesNode;
                     case '!=':
                     case '!==':
                     case '>':
+                        modified = true;
                         return includesNode;
                     default:
                         return node;
@@ -36,8 +40,10 @@ module.exports = (file, api, options) => {
             } else if (rightHandIsZero) {
                 switch (node.operator) {
                     case '<':
+                        modified = true;
                         return notIncludesNode;
                     case '>=':
+                        modified = true;
                         return includesNode;
                     default:
                         return node;
@@ -87,5 +93,5 @@ module.exports = (file, api, options) => {
         return simplifyLeftSideIndexOf(node);
     });
 
-    return root.toSource(printOptions);
+    return modified ? root.toSource(printOptions) : null;
 };
